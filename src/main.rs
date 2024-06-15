@@ -24,7 +24,7 @@ struct SplashBehaviour {
 }
 
 const BOOTNODES: [&str; 1] = [
-    "12D3KooWRx8tmfDcU5RsPi7CEF3vYFrtuWM11eYD8tcz8jKTtZPa",
+    "12D3KooWHYA1nnKoANjgsQJCGGYJCKMXor574Jnp5faV9xUysHAt",
 ];
 
 const MAX_OFFER_SIZE: usize = 300 * 1024;
