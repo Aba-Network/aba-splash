@@ -23,10 +23,8 @@ struct SplashBehaviour {
     identify: identify::Behaviour,
 }
 
-const BOOTNODES: [&str; 3] = [
-    "12D3KooWM1So76jzugAettgrfA1jfcaKA66EAE6k1zwAT3oVzcnK",
-    "12D3KooWCLvBXPohyMUKhbRrkcfRRkMLDfnCqyCjNSk6qyfjLMJ8",
-    "12D3KooWP6QDYTCccwfUQVAc6jQDvzVY1FtU3WVsAxmVratbbC5V",
+const BOOTNODES: [&str; 1] = [
+    "12D3KooWRx8tmfDcU5RsPi7CEF3vYFrtuWM11eYD8tcz8jKTtZPa",
 ];
 
 const MAX_OFFER_SIZE: usize = 300 * 1024;
@@ -89,7 +87,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let mut cfg = kad::Config::default();
 
             cfg.set_protocol_names(vec![StreamProtocol::try_from_owned(
-                "/splash/kad/1".to_string(),
+                "/aba-splash/kad/1".to_string(),
             )?]);
 
             cfg.set_query_timeout(Duration::from_secs(60));
@@ -97,7 +95,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
             let mut kademlia = kad::Behaviour::with_config(key.public().to_peer_id(), store, cfg);
 
-            // In case the user provided an known peer, use it to enter the network
+            // In case the user provided a known peer, use it to enter the network
             if let Some(addr) = opt.known_peer {
                 let Some(Protocol::P2p(peer_id)) = addr.iter().last() else {
                     return Err("Expect peer multiaddr to contain peer ID.".into());
@@ -105,16 +103,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
                 kademlia.add_address(&peer_id, addr);
             } else {
-                println!("No known peers, bootstrapping from dexies dns introducer");
+                println!("No known peers, bootstrapping from aba's splash dns introducer");
                 for peer in &BOOTNODES {
-                    kademlia.add_address(&peer.parse()?, "/dnsaddr/splash.dexie.space".parse()?);
+                    kademlia.add_address(&peer.parse()?, "/dnsaddr/aba-splash.aba.ooo".parse()?);
                 }
             }
 
             kademlia.bootstrap().unwrap();
 
             let identify = identify::Behaviour::new(identify::Config::new(
-                "/splash/id/1".into(),
+                "/aba-splash/id/1".into(),
                 key.public().clone(),
             ));
 
@@ -138,7 +136,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     }
 
     // Create a Gossipsub topic
-    let topic = gossipsub::IdentTopic::new("/splash/offers/1");
+    let topic = gossipsub::IdentTopic::new("/aba-splash/offers/1");
 
     // subscribes to our topic
     swarm.behaviour_mut().gossipsub.subscribe(&topic)?;
