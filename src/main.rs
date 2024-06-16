@@ -23,8 +23,9 @@ struct SplashBehaviour {
     identify: identify::Behaviour,
 }
 
-const BOOTNODES: [&str; 1] = [
+const BOOTNODES: [&str; 2] = [
     "12D3KooWHYA1nnKoANjgsQJCGGYJCKMXor574Jnp5faV9xUysHAt",
+    "12D3KooWLDHkGYnE98tSMWxV2KMxcSFhC3UNFzTx3kT6BqcvgDSE",
 ];
 
 const MAX_OFFER_SIZE: usize = 300 * 1024;
