@@ -6,7 +6,7 @@ Every connected peer receives all offers broadcasted from other peers. There is 
 
 The Splash! command line tools acts as a proxy between your application the Splash! network. It will broadcast your offers to the network and relay offers from other peers to your local application through a local HTTP API.
 
-We're using a default port 11711 for Aba Offers w/ Aba-Splash.
+We're using a default port 11712 for Aba Offers w/ Aba-Splash.
 
 ## Installation
 
@@ -70,17 +70,17 @@ Start a node and reuse identity:
 ## Test the API with Docker
 
 ```bash
-docker run -p 11711:11711 -p 4000:4000 dexiespace/splash:latest \
+docker run -p 11712:11712 -p 4000:4000 dexiespace/splash:latest \
 --listen-offer-submission 0.0.0.0:4000 \
---listen-address /ip4/0.0.0.0/tcp/11711
+--listen-address /ip4/0.0.0.0/tcp/11712
 # send the request
 curl -X POST -H "Content-Type: application/json" -d '{"offer":"offer1..."}' http://localhost:4000
 ```
 
 ## Become a stable peer
 
-To become a stable peer, you need to open an inbound port in your firewall. Then start Splash! with the `--listen-address` option and choose your public interface and the selected port (eg. `11711`).
+To become a stable peer, you need to open an inbound port in your firewall. Then start Splash! with the `--listen-address` option and choose your public interface and the selected port (eg. `11712`).
 
-`./aba-splash --listen-address /ip6/2001:db8::1/tcp/11711 --listen-address /ip4/1.2.3.4/tcp/11711`
+`./aba-splash --listen-address /ip6/2001:db8::1/tcp/11712 --listen-address /ip4/1.2.3.4/tcp/11712`
 
 Running a stable peer? Let us know! We will add you to the default bootstrap list.
